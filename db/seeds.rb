@@ -6,25 +6,34 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-CSV.foreach("#{Rails.root}/db/testers.csv", :headers => true).each do |row|
-  Tester.create(id: row["testerId"], 
-    first_name: row["firstName"], 
-    last_name: row["lastName"], 
-    country: row["country"], 
-    last_login: row["lastLogin"])
+if Tester.count.zero?
+  CSV.foreach("#{Rails.root}/db/testers.csv", :headers => true).each do |row|
+    Tester.create(id: row["testerId"], 
+      first_name: row["firstName"], 
+      last_name: row["lastName"], 
+      country: row["country"], 
+      last_login: row["lastLogin"])
+  end
 end
 
-CSV.foreach("#{Rails.root}/db/bugs.csv", :headers => true).each do |row|
-  Bug.create(id: row["bugId"], 
-    devices_id: row["deviceId"], 
-    testers_id: row["testerId"])
+if Device.count.zero?
+  CSV.foreach("#{Rails.root}/db/devices.csv", :headers => true).each do |row|
+    Device.create(id: row["deviceId"], 
+      description: row["description"])
+  end
 end
 
-CSV.foreach("#{Rails.root}/db/devices.csv", :headers => true).each do |row|
-  Device.create(id: row["deviceId"], 
-    description: row["description"])
+if Bug.count.zero?
+  CSV.foreach("#{Rails.root}/db/bugs.csv", :headers => true).each do |row|
+    bug = Bug.new(id: row["bugId"])
+    bug.device = Device.find(row["deviceId"])
+    bug.tester = Tester.find(row["testerId"])
+    bug.save
+  end
 end
 
-CSV.foreach("#{Rails.root}/db/tester_device.csv", :headers => true).each do |row|
-  Tester.find(row["testerId"]).devices << Device.find(row["deviceId"])
+if TestersDevice.count.zero?
+  CSV.foreach("#{Rails.root}/db/tester_device.csv", :headers => true).each do |row|
+    Tester.find(row["testerId"]).devices << Device.find(row["deviceId"])
+  end
 end
