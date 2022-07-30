@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tester: one
+  devices: one
+
+two:
+  tester: two
+  devices: two
