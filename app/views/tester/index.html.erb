@@ -1,0 +1,27 @@
+<h1>Tester Index</h1>
+
+<%= form_with url: "/search", method: :post do |form| %>
+  <%= form.label :countries, "Countries:" %>
+  <%= form.select :countries, @countries, {include_blank: false}, {multiple: true} %>
+  <%= form.label :devices, "Devices:" %>
+  <%= form.select :devices, @devices, {include_blank: false}, {multiple: true} %>
+  <%= form.submit "Search" %>
+<% end %>
+
+
+
+<% if @results.present? %>
+  <table>
+  <tr>
+    <th>First Name<th>
+    <th>Last Name</th>
+    <th>Country</th>
+    <th>Experience (Number of bugs in given criteria)</th>
+  </tr>
+  <% @results.each do |tester| %>
+  <tr>
+    <td><%=tester["first_name"]%></td><td><%=tester["last_name"]%></td><td><%=tester["country"]%></td><td><%=tester["experience"]%></td>
+  </tr>
+  <% end %>
+  </table>
+<% end %>
