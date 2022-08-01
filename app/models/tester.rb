@@ -4,6 +4,7 @@ class Tester < ApplicationRecord
   has_many :bugs, foreign_key: :testers_id
 
   def get_experience(device_ids)
-    self.bugs.where(devices_id: device_ids).count
+    return self.bugs.where(devices_id: device_ids).count if !device_ids.include?('ALL')
+    return self.bugs.count
   end
 end

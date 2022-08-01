@@ -1,5 +1,6 @@
-<h1>Tester Index</h1>
+<h1>Tester Search</h1>
 
+<p>Leave entries unselected for ALL</p>
 <%= form_with url: "/search", method: :post do |form| %>
   <%= form.label :countries, "Countries:" %>
   <%= form.select :countries, @countries, {include_blank: false}, {multiple: true} %>
@@ -20,8 +21,15 @@
   </tr>
   <% @results.each do |tester| %>
   <tr>
-    <td><%=tester["first_name"]%></td><td><%=tester["last_name"]%></td><td><%=tester["country"]%></td><td><%=tester["experience"]%></td>
+    <td><%=tester["first_name"]%></td>
+    <td><%=tester["last_name"]%></td>
+    <td><%=tester["country"]%></td>
+    <td><%=tester["experience"]%></td>
   </tr>
   <% end %>
   </table>
 <% end %>
+
+<% if @message.present? %>
+  <h2><%=@message%></h2>
+<%end%>
