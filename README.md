@@ -1,20 +1,19 @@
 # README
 
-* Ruby version
+## Ruby version
 ruby '2.5.8'
 
-* Database creation
+## Database creation
 - createdb postgres
 - rake db:create
 
-* Database initialization
+## Database initialization
 - rake db:migrate
 - rake db:seed
 
-* How to run the test suite
-
+## How to run the test suite
 rspec spec
 
-* Startup
+##  Startup
 - rails s
 - Navigate to localhost:3000
